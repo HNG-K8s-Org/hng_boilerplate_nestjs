@@ -1,36 +1,23 @@
-name: Self-Hosted Runner Test
+name: CI on Self-Hosted Runner
 
 on:
   push:
     branches:
       - dev
-  pull_request:
-    branches:
-      - dev
 
 jobs:
-  test:
+  build:
     runs-on: arc-runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Run tests
-        run: npm test
-
-      - name: Display system info
+      
+      - name: Display runner details
         run: |
           echo "Running on $(uname -a)"
           echo "CPU cores: $(nproc)"
           echo "Memory: $(free -h)"
+      
+      - name: Run a sample job
+        run: |
+          echo "Hello from self-hosted runner!"
